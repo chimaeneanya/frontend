@@ -11,7 +11,7 @@
 	<meta name="description" content="Eduport ">
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 	<!-- <script src="assets/js/product.js"></script> -->
-	
+
 
 
 
@@ -153,7 +153,8 @@
 
 				<!-- Cart button -->
 				<div class="me-2 me-md-3 dropdown">
-					<button :disabled="!hasItemsInCart"  v-on:click="showCart" class="btn btn-light btn-round mb-0" role="button">
+					<button :disabled="!hasItemsInCart" v-on:click="showCart" class="btn btn-light btn-round mb-0"
+						role="button">
 						<i class="bi bi-cart3 fa-fw"></i>
 					</button>
 					<!-- badge -->
@@ -328,7 +329,8 @@
 									<div class="card-body pb-0">
 										<!-- Badge and favorite -->
 										<div class="d-flex justify-content-between mb-2">
-											<a href="#" class="badge bg-success bg-opacity-10 text-success">{{product.subcat}}</a>
+											<a href="#"
+												class="badge bg-success bg-opacity-10 text-success">{{product.subcat}}</a>
 											<!-- Use product-specific unshowLove for independent toggling -->
 											<a type="button" v-if="product.unshowLove" @click="toggleLove(product)"
 												class="h6 fw-light mb-0">
@@ -339,7 +341,7 @@
 											</a>
 										</div>
 										<!-- Title -->
-										<h5  class="card-title"><a href="#">{{product.title}} </a></h5>
+										<h5 class="card-title"><a href="#">{{product.title}} </a></h5>
 										<p class="mb-2 text-truncate-2"><strong>Location: </strong>{{product.location}}
 										</p>
 										<!-- Rating star -->
@@ -569,7 +571,7 @@
 							<h5 class="mb-0">Personal Details</h5>
 
 							<!-- Form START -->
-							<form  class="row g-3 mt-0">
+							<form class="row g-3 mt-0">
 								<!-- Name -->
 								<div class="col-md-6 bg-light-input">
 									<label for="yourName" class="form-label">Your name *</label>
@@ -585,8 +587,8 @@
 								<!-- Mobile number -->
 								<div class="col-md-6 bg-light-input">
 									<label for="mobileNumber" class="form-label">Mobile number *</label>
-									<input type="text" class="form-control" id="mobileNumber"
-										v-model="formData.mobile" placeholder="Mobile number">
+									<input type="text" class="form-control" id="mobileNumber" v-model="formData.mobile"
+										placeholder="Mobile number">
 								</div>
 								<!-- Postal code -->
 								<div class="col-md-6 bg-light-input">
@@ -631,11 +633,9 @@
 																	class="text-danger">*</span></label>
 															<div class="input-group">
 																<input type="text" class="form-control"
-																	v-model="formData.expiryMonth"
-																	placeholder="Month">
+																	v-model="formData.expiryMonth" placeholder="Month">
 																<input type="text" class="form-control"
-																	v-model="formData.expiryYear"
-																	placeholder="Year">
+																	v-model="formData.expiryYear" placeholder="Year">
 															</div>
 														</div>
 														<!-- CVV -->
@@ -661,7 +661,7 @@
 							</div>
 							<!-- Payment method END -->
 
-							
+
 						</div>
 						<!-- Personal info END -->
 					</div>
@@ -716,7 +716,8 @@
 									</ul>
 
 									<!-- Place Order Button -->
-									<a href="#" class="btn btn-lg btn-success" :disabled="!formIsValid" @click.prevent="placeOrder">
+									<a href="#" class="btn btn-lg btn-success" :disabled="!formIsValid"
+										@click.prevent="placeOrder">
 										Place Order
 									</a>
 
@@ -915,7 +916,7 @@ Footer START -->
 Footer END -->
 
 
-<!-- <script src="assets/js/vue.js"></script> -->
+	<!-- <script src="assets/js/vue.js"></script> -->
 </body>
 <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
 
@@ -926,154 +927,156 @@ Footer END -->
 
 
 <script>
-Vue.createApp({
-    data() {
-        return {
-            showProduct: true, // Toggle between product list and checkout views
-            products: [], // Products fetched from the backend
-            cart: [], // Items added to the cart
-            sortBy: "title", // Default sorting field
-            sortOrder: "asc", // Default sorting order
-            sortOptions: [
-                { label: "Subject", value: "title" },
-                { label: "Location", value: "location" },
-                { label: "Price", value: "price" },
-                { label: "Availability", value: "spaces" }
-            ],
-            formData: {
-                // Checkout form data
-                name: "",
-                email: "",
-                mobile: "",
-                postalCode: "",
-                cardNumber: "",
-                expiryMonth: "",
-                expiryYear: "",
-                cvv: "",
-                cardName: ""
-            },
-            formIsValid: false // Track form validity
-        };
-    },
-    methods: {
-        // Fetch products from the backend
-        async fetchProducts() {
-            try {
-                const response = await fetch('http://localhost:5000/api/products');
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status} ${response.statusText}`);
-                }
-                this.products = await response.json();
-            } catch (error) {
-                console.error('Failed to fetch products:', error);
-                alert('Unable to fetch products. Please try again later.');
-            }
-        },
-        showCart() {
-            this.showProduct = !this.showProduct;
-        },
-        toggleLove(product) {
-            // Toggle the love state for this specific product
-            product.unshowLove = !product.unshowLove;
-        },
-        addToCart(product) {
-            this.cart.push(product); // Push the entire product object to cart
-        },
-        itemsLimit(product) {
-            return product.spaces > this.cartCount(product.id);
-        },
-        removeFromCart(index) {
-            this.cart.splice(index, 1); // Remove item by index from cart
-        },
-        cartCount(productId) {
-            return this.cart.filter(item => item.id === productId).length;
-        },
-        itemsLeft(product) {
-            return product.spaces - this.cartCount(product.id);
-        },
-        // Place an order and send it to the backend
-        async placeOrder() {
-            if (this.formIsValid && this.cart.length > 0) {
-                const order = {
-                    customer: this.formData,
-                    items: this.cart,
-                    total: this.total
-                };
-                try {
-                    const response = await fetch('http://localhost:5000/api/orders', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(order)
-                    });
+	Vue.createApp({
+		data() {
+			return {
+				showProduct: true, // Toggle between product list and checkout views
+				products: [], // Products fetched from the backend
+				cart: [], // Items added to the cart
+				sortBy: "title", // Default sorting field
+				sortOrder: "asc", // Default sorting order
+				sortOptions: [
+					{ label: "Subject", value: "title" },
+					{ label: "Location", value: "location" },
+					{ label: "Price", value: "price" },
+					{ label: "Availability", value: "spaces" }
+				],
+				formData: {
+					// Checkout form data
+					name: "",
+					email: "",
+					mobile: "",
+					postalCode: "",
+					cardNumber: "",
+					expiryMonth: "",
+					expiryYear: "",
+					cvv: "",
+					cardName: ""
+				},
+				formIsValid: false // Track form validity
+			};
+		},
+		methods: {
+			// Fetch products from the backend
+			async fetchProducts() {
+				try {
+					const response = await fetch('http://localhost:5000/api/products');
+					if (!response.ok) {
+						throw new Error(`Server error: ${response.status} ${response.statusText}`);
+					}
+					this.products = await response.json();
+				} catch (error) {
+					console.error('Failed to fetch products:', error);
+					alert('Unable to fetch products. Please try again later.');
+				}
+			},
+			showCart() {
+				this.showProduct = !this.showProduct;
+			},
+			toggleLove(product) {
+				// Toggle the love state for this specific product
+				product.unshowLove = !product.unshowLove;
+			},
+			addToCart(product) {
+				this.cart.push(product); // Push the entire product object to cart
+			},
+			itemsLimit(product) {
+				return product.spaces > this.cartCount(product.id);
+			},
+			removeFromCart(index) {
+				this.cart.splice(index, 1); // Remove item by index from cart
+			},
+			cartCount(productId) {
+				return this.cart.filter(item => item.id === productId).length;
+			},
+			itemsLeft(product) {
+				return product.spaces - this.cartCount(product.id);
+			},
+			// Place an order and send it to the backend
+			async placeOrder() {
+				if (this.formIsValid && this.cart.length > 0) {
+					const orders = {
+						customer: this.formData,
+						items: this.cart,
+						total: this.total
+					};
+					console.log('Order data being sent:', orders); // Log for debugging
+					try {
+						const response = await fetch('http://localhost:5000/api/orders', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify(orders)
+						});
 
-                    // Check if response is valid JSON
-                    if (!response.ok) {
-                        throw new Error(`Server error: ${response.status} ${response.statusText}`);
-                    }
+						console.log('Response:', response); // Log response details
 
-                    const result = await response.json();
-                    if (result.success) {
-                        alert(result.message);
-                        this.cart = []; // Clear the cart after a successful order
-                    } else {
-                        alert(`Failed to place order: ${result.message || 'Unknown error'}`);
-                    }
-                } catch (error) {
-                    console.error('Failed to place order:', error);
-                    alert('Unable to place order. Please try again later.');
-                }
-            } else {
-                alert('Please fill all form fields or add items to the cart.');
-            }
-        },
-        // Validate checkout form
-        validateForm() {
-            this.formIsValid =
-                this.formData.name.trim() &&
-                this.formData.email.trim() &&
-                this.formData.mobile.trim() &&
-                this.formData.postalCode.trim() &&
-                this.formData.cardNumber.trim() &&
-                this.formData.expiryMonth.trim() &&
-                this.formData.expiryYear.trim() &&
-                this.formData.cvv.trim() &&
-                this.formData.cardName.trim();
-        }
-    },
-    computed: {
-        itemsInTheCart() {
-            return this.cart.length || "";
-        },
-        hasItemsInCart() {
-            return this.cart.length > 0; // Returns true if cart has items
-        },
-        total() {
-            return this.cart.reduce((sum, item) => sum + item.price, 0); // Summing prices in cart
-        },
-        sortedProducts() {
-            return [...this.products].sort((a, b) => {
-                let result;
-                if (this.sortBy === "title" || this.sortBy === "location") {
-                    result = a[this.sortBy].localeCompare(b[this.sortBy]);
-                } else {
-                    result = a[this.sortBy] - b[this.sortBy];
-                }
-                return this.sortOrder === "asc" ? result : -result;
-            });
-        }
-    },
-    watch: {
-        // Watch formData and validate the form when changes occur
-        formData: {
-            handler: "validateForm",
-            deep: true
-        }
-    },
-    // Fetch products when the app is mounted
-    mounted() {
-        this.fetchProducts();
-    }
-}).mount('#app');
+						if (!response.ok) {
+							throw new Error(`Server error: ${response.status} ${response.statusText}`);
+						}
+
+						const result = await response.json();
+						if (result.success) {
+							alert(result.message);
+							this.cart = []; // Clear the cart after a successful order
+						} else {
+							alert(`Failed to place order: ${result.message || 'Unknown error'}`);
+						}
+					} catch (error) {
+						console.error('Failed to place order:', error);
+						alert('Unable to place order. Please try again later.');
+					}
+				} else {
+					alert('Please fill all form fields or add items to the cart.');
+				}
+			},
+			// Validate checkout form
+			validateForm() {
+				this.formIsValid =
+					this.formData.name.trim() &&
+					this.formData.email.trim() &&
+					this.formData.mobile.trim() &&
+					this.formData.postalCode.trim() &&
+					this.formData.cardNumber.trim() &&
+					this.formData.expiryMonth.trim() &&
+					this.formData.expiryYear.trim() &&
+					this.formData.cvv.trim() &&
+					this.formData.cardName.trim();
+			}
+		},
+		computed: {
+			itemsInTheCart() {
+				return this.cart.length || "";
+			},
+			hasItemsInCart() {
+				return this.cart.length > 0; // Returns true if cart has items
+			},
+			total() {
+				return this.cart.reduce((sum, item) => sum + item.price, 0); // Summing prices in cart
+			},
+			sortedProducts() {
+				return [...this.products].sort((a, b) => {
+					let result;
+					if (this.sortBy === "title" || this.sortBy === "location") {
+						result = a[this.sortBy].localeCompare(b[this.sortBy]);
+					} else {
+						result = a[this.sortBy] - b[this.sortBy];
+					}
+					return this.sortOrder === "asc" ? result : -result;
+				});
+			}
+		},
+		watch: {
+			// Watch formData and validate the form when changes occur
+			formData: {
+				handler: "validateForm",
+				deep: true
+			}
+		},
+		// Fetch products when the app is mounted
+		mounted() {
+			this.fetchProducts();
+		}
+	}).mount('#app');
 </script>
 
 
