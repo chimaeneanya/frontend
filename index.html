@@ -623,7 +623,7 @@
 														<div class="col-md-12">
 															<label class="form-label">Card Number <span
 																	class="text-danger">*</span></label>
-															<input type="text" class="form-control"
+															<input type="number" class="form-control"
 																v-model="formData.cardNumber"
 																placeholder="xxxx xxxx xxxx xxxx">
 														</div>
@@ -947,7 +947,7 @@ Footer END -->
 					email: "",
 					mobile: "",
 					postalCode: "",
-					cardNumber: "",
+					cardNumber: 0,
 					expiryMonth: "",
 					expiryYear: "",
 					cvv: "",
@@ -1037,12 +1037,12 @@ Footer END -->
 				this.formIsValid =
 					this.formData.name.trim() &&
 					this.formData.email.trim() &&
-					this.formData.mobile.trim() &&
-					this.formData.postalCode.trim() &&
-					this.formData.cardNumber.trim() &&
-					this.formData.expiryMonth.trim() &&
-					this.formData.expiryYear.trim() &&
-					this.formData.cvv.trim() &&
+					// this.formData.mobile.trim() &&
+					// this.formData.postalCode.trim() &&
+					// this.formData.cardNumber.trim() &&
+					// this.formData.expiryMonth.trim() &&
+					// this.formData.expiryYear.trim() &&
+					// this.formData.cvv.trim() &&
 					this.formData.cardName.trim();
 			}
 		},
