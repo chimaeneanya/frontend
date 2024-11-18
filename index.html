@@ -1018,6 +1018,9 @@ Footer END -->
 						if (result.success) {
 							alert(result.message);
 							this.cart = []; // Clear the cart after a successful order
+							setTimeout(() => {
+								location.reload();
+							}, 100);
 						} else {
 							alert(`Failed to place order: ${result.message || 'Unknown error'}`);
 						}
