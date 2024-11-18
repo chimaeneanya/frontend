@@ -587,13 +587,13 @@
 								<!-- Mobile number -->
 								<div class="col-md-6 bg-light-input">
 									<label for="mobileNumber" class="form-label">Mobile number *</label>
-									<input type="text" class="form-control" id="mobileNumber" v-model="formData.mobile"
+									<input type="number" class="form-control" id="mobileNumber" v-model="formData.mobile"
 										placeholder="Mobile number">
 								</div>
 								<!-- Postal code -->
 								<div class="col-md-6 bg-light-input">
 									<label for="postalCode" class="form-label">Postal code *</label>
-									<input type="text" class="form-control" id="postalCode"
+									<input type="number" class="form-control" id="postalCode"
 										v-model="formData.postalCode" placeholder="Postcode code">
 								</div>
 							</form>
@@ -632,9 +632,9 @@
 															<label class="form-label">Expiration date <span
 																	class="text-danger">*</span></label>
 															<div class="input-group">
-																<input type="text" class="form-control"
+																<input type="number" class="form-control"
 																	v-model="formData.expiryMonth" placeholder="Month">
-																<input type="text" class="form-control"
+																<input type="number" class="form-control"
 																	v-model="formData.expiryYear" placeholder="Year">
 															</div>
 														</div>
@@ -642,7 +642,7 @@
 														<div class="col-md-6">
 															<label class="form-label">CVV <span
 																	class="text-danger">*</span></label>
-															<input type="text" class="form-control"
+															<input type="number" class="form-control"
 																v-model="formData.cvv" placeholder="CVV">
 														</div>
 														<!-- Card Name -->
@@ -945,12 +945,12 @@ Footer END -->
 					// Checkout form data
 					name: "",
 					email: "",
-					mobile: "",
-					postalCode: "",
+					mobile: 0,
+					postalCode: 0,
 					cardNumber: 0,
-					expiryMonth: "",
-					expiryYear: "",
-					cvv: "",
+					expiryMonth: 0,
+					expiryYear: 0,
+					cvv: 0,
 					cardName: ""
 				},
 				formIsValid: false // Track form validity
