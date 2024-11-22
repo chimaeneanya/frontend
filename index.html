@@ -1005,7 +1005,8 @@ Footer END -->
 						const response = await fetch('https://backend-gfnq.onrender.com/api/orders', {
 							method: 'POST',
 							headers: { 'Content-Type': 'application/json' },
-							body: JSON.stringify(orders)
+							body: JSON.stringify(orders),
+							mode: "no-cors",
 						});
 
 						console.log('Response:', response); // Log response details
