@@ -1025,6 +1025,9 @@ Footer END -->
 							alert(`Failed to place order: ${result.message || 'Unknown error'}`);
 						}
 					} catch (error) {
+						if(error.message.toString().toLowerCase().includes("origin")){
+							return 
+						}
 						console.error('Failed to place order:', error);
 						alert('Unable to place order. Please try again later.');
 					}
