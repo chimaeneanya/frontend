@@ -285,7 +285,8 @@
 							<div class="col-xl-6">
 								<form class="border rounded p-2">
 									<div class="input-group input-borderless">
-										<input class="form-control me-1" type="search" placeholder="Find your course">
+										<input type="text" v-model="searchQuery" placeholder="Search for products..."
+											class="form-control me-1" />
 										<button type="button" class="btn btn-primary mb-0 rounded z-index-1"><i
 												class="fas fa-search"></i></button>
 									</div>
@@ -322,7 +323,8 @@
 						<div class="row g-4">
 
 							<!-- Card item START -->
-							<div v-for="product in sortedProducts" :key="product.id" class="col-sm-6 col-xl-4">
+							<div v-for="product in filteredAndSortedProducts" :key="product.id"
+								class="col-sm-6 col-xl-4">
 								<div class="card shadow h-100">
 									<!-- Image -->
 									<img v-bind:src="product.image" class="card-img-top" alt="course image">
@@ -388,7 +390,10 @@
 								</div>
 							</div>
 							<!-- Card item END -->
-
+							<!-- Show "No Results Found" if no products match -->
+							<div v-if="filteredAndSortedProducts.length === 0" class="col-12 text-center">
+								<p class="text-danger">No results found for "{{ searchQuery }}".</p>
+							</div>
 
 						</div>
 						<!-- Course Grid END -->
@@ -587,8 +592,8 @@
 								<!-- Mobile number -->
 								<div class="col-md-6 bg-light-input">
 									<label for="mobileNumber" class="form-label">Mobile number *</label>
-									<input type="number" class="form-control" id="mobileNumber" v-model="formData.mobile"
-										placeholder="Mobile number">
+									<input type="number" class="form-control" id="mobileNumber"
+										v-model="formData.mobile" placeholder="Mobile number">
 								</div>
 								<!-- Postal code -->
 								<div class="col-md-6 bg-light-input">
@@ -932,6 +937,7 @@ Footer END -->
 			return {
 				showProduct: true, // Toggle between product list and checkout views
 				products: [], // Products fetched from the backend
+				searchQuery: '', // Search input value
 				cart: [], // Items added to the cart
 				sortBy: "title", // Default sorting field
 				sortOrder: "asc", // Default sorting order
@@ -1066,7 +1072,20 @@ Footer END -->
 					}
 					return this.sortOrder === "asc" ? result : -result;
 				});
-			}
+			},
+			filteredAndSortedProducts() {
+				// Filter the sorted products based on the search query
+				const query = this.searchQuery.toLowerCase();
+
+				return this.sortedProducts.filter(product => {
+					// Check if the product matches the query
+					return (
+						product.title.toLowerCase().includes(query) ||
+						product.location.toLowerCase().includes(query) ||
+						product.subcat.toLowerCase().includes(query)
+					);
+				});
+			},
 		},
 		watch: {
 			// Watch formData and validate the form when changes occur
