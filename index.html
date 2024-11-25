@@ -1051,7 +1051,7 @@ Footer END -->
 			sortedProducts() {
 				return [...this.products].sort((a, b) => {
 					let result;
-					if (this.sortBy === "title" || this.sortBy === "location") {
+					if (this.sortBy === "title" || this.sortBy === "location" || this.sortBy === "price") {
 						result = a[this.sortBy].localeCompare(b[this.sortBy]);
 					} else {
 						result = a[this.sortBy] - b[this.sortBy];
@@ -1068,7 +1068,8 @@ Footer END -->
 					return (
 						product.title.toLowerCase().includes(query) ||
 						product.location.toLowerCase().includes(query) ||
-						product.subcat.toLowerCase().includes(query)
+						product.subcat.toLowerCase().includes(query)||
+						String(product.price).toLowerCase().includes(query)
 					);
 				});
 			},
