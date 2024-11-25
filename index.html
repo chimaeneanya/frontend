@@ -1051,7 +1051,7 @@ Footer END -->
 			sortedProducts() {
 				return [...this.products].sort((a, b) => {
 					let result;
-					if (this.sortBy === "title" || this.sortBy === "location" || this.sortBy === "price") {
+					if (this.sortBy === "title" || this.sortBy === "location") {
 						result = a[this.sortBy].localeCompare(b[this.sortBy]);
 					} else {
 						result = a[this.sortBy] - b[this.sortBy];
