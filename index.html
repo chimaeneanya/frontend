@@ -1,11 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
+	<head>
+		<title>Erics Lessons</title>
+	
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="School Project">
+		<meta name="description" content="Erics Lessons">
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<!-- <script src="assets/js/product.js"></script> -->
+	
+	
+	
+		<!-- Favicon -->
+		<!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
+	
+		<!-- Google Font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com/">
+		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap"
+			rel="stylesheet">
+		<!-- Plugins CSS -->
+		<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+		<!-- <link rel="stylesheet" type="text/css" href="assets/vendor/choices/css/choices.min.css"> -->
+	
+		<!-- Theme CSS -->
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	
+	</head>
+<body id="app">
+		<!-- Header START -->
+		<header class="navbar-light navbar-sticky">
+			<!-- Logo Nav START -->
+			<nav class="navbar navbar-expand-xl">
+				<div class="container">
+					<!-- Logo START -->
+					<a class="navbar-brand" href="index.html">
+						<h2>Erics Lessons</h2>
+					</a>
+					<!-- Logo END -->
+	
+					<!-- Responsive navbar toggler -->
+					<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+						data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-animation">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</button>
+	
+					<!-- Main navbar START -->
+					<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+	
+						<!-- Nav Main menu START -->
+						<ul class="navbar-nav navbar-nav-scroll mx-auto">
+	
+							<li class="nav-item dropdown">
+								<a class="nav-link" href="index.html" id="demoMenu">HOME</a>
+	
+							</li>
+	
+	
+						</ul>
+						<!-- Nav Main menu END -->
+	
+	
+					</div>
+					<!-- Main navbar END -->
+	
+	
+					<!-- Cart button -->
+					<div class="me-2 me-md-3 dropdown">
+						<button :disabled="!hasItemsInCart" v-on:click="showCart" class="btn btn-light btn-round mb-0"
+							role="button">
+							<i class="bi bi-cart3 fa-fw"></i>
+						</button>
+						<!-- badge -->
+						<span
+							class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-dark mt-xl-2 ms-n1">
+							{{ itemsInTheCart }}
+						</span>
+					</div>
+					<!-- Cart dropdown END -->
+	
+				</div>
+			</nav>
+			<!-- Logo Nav END -->
+		</header>
+		<!-- Header END -->
 	
 </body>
-</html>
+</html>	
